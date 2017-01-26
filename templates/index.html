@@ -1,10 +1,49 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" media="screen" title="no title">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/theme.css' %}" />
   </head>
   <body>
+    <div class="container">
     <h1>INDEX</h1>
+    <form class="form-inline" name="form" method="get">
+      {% csrf_token %}
+      <label for="model_name">Model Name</label>
+      <input type="text" class='form-control' name="model_name" value="">
+      <br>
+
+      <label for="prop_1">Property Name</label>
+      <input type="text" class='form-control' name="prop_1" value="">
+      <select name="prop_1_type">
+        <option value="CharField(max_length=200)">String</option>
+        <option value="IntegerField()">Integer</option>
+        <option value="BooleanField()">Boolean</option>
+      </select>
+      <br>
+
+      <label for="prop_2">Property Name</label>
+      <input type="text" class='form-control' name="prop_2" value="">
+      <select name="prop_2_type">
+        <option value="CharField(max_length=200)">String</option>
+        <option value="IntegerField()">Integer</option>
+        <option value="BooleanField()">Boolean</option>
+      </select>
+
+      <input type="submit" value="Submit">
+    </form>
+    <hr>
+
+    <div class="model_info">
+      <pre>{{ model_info }}</pre>
+    </div>
+
+
+
+
+  </div>
   </body>
 </html>
