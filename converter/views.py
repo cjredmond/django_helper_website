@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from converter.helper import model_add
+from converter.helper import model_add, detail_view_add, list_view_add, create_view_add, update_view_add, url_add
 
 class IndexView(TemplateView):
     template_name = "index.html"
@@ -34,5 +34,6 @@ class IndexView(TemplateView):
         context['prop_2'] = prop_2
         context['prop_2_type'] = prop_2_type
         context['model_info'] = model_add(model_name, fields)
-
+        context['view_info'] = [detail_view_add(model_name), list_view_add(model_name), create_view_add(model_name,fields), update_view_add(model_name,fields)]
+        context['url_info'] = url_add(model_name)
         return context

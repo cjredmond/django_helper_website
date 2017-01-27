@@ -36,13 +36,24 @@
       <input type="submit" value="Submit">
     </form>
     <hr>
-
-    <div class="model_info">
-      <pre>{{ model_info }}</pre>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="model_info">
+          <h4>Add to app/models.py</h4>
+          <pre>{{ model_info }}</pre>
+        </div>
+        <div class="view_info">
+          <h4>Add to app/views.py</h4>
+          {% for item in view_info %}
+          <pre>{{ item }}</pre>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-md-7">
+        <h4>URLs</h4>
+          <pre>{{ url_info }}</pre>
+      </div>
     </div>
-
-
-
 
   </div>
   </body>

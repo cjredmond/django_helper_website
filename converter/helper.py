@@ -4,6 +4,36 @@ def model_add(model_name, fields):
         model_string += "\t{} = models.{}\n".format(field[0],field[1])
     return model_string
 
+def detail_view_add(model_name):
+    detail_string = "\nclass {}DetailView(DetailView)\n\tmodel = {}".format(model_name.title(), model_name)
+    return detail_string
 
+def list_view_add(model_name):
+    list_string = "\nclass {}ListView(ListView) \n\tmodel = {}".format(model_name.title(), model_name)
+    return list_string
+
+def create_view_add(model_name, fields):
+    create_string = "\nclass {}CreateView(CreateView) \n\t".format(model_name.title())
+    create_string += "model = {}\n".format(model_name)
+    create_string += "\tfields = ({})\n".format([str(x[0]) for x in fields])
+    create_string += "\tdef form_valid(self,form):\n"
+    create_string += "\t\tinstance = form.save(commit=False)\n"
+    create_string += "\t\treturn super().form_valid(form)\n"
+    create_string += "\tdef get_success_url(self):\n\treturn '/'"
+    return create_string
+
+def update_view_add(model_name, fields):
+    update_string = "\nclass {}UpdateView(UpdateView):\n".format(model_name.title())
+    update_string += "\tmodel = {}\n".format(model_name)
+    update_string += "\tfields = ({})\n".format([str(x[0]) for x in fields])
+    update_string += "\tsuccess_url = '/'"
+    return update_string
+
+def url_add(model_name):
+    url_string = "\turl(r'^{}/(?P<pk>\d+)/$', {}DetailView.as_view(), name='{}_index_view'),\n".format(model_name, model_name.title(), model_name)
+    url_string += "\turl(r'^{}s/$', {}ListView.as_view(), name='{}_list_view'),\n".format(model_name, model_name.title(), model_name)
+    url_string += "\turl(r'^{}/new/$', {}CreateView.as_view(), name='{}_create_view'),\n".format(model_name, model_name.title(), model_name)
+    url_string += "\turl(r'^{}/(?P<pk>\d+)/update/$', {}UpdateView.as_view(), name='{}_update_view',\n".format(model_name, model_name.title(), model_name)
+    return url_string
 
 # print(model_add('post',[['first', 'string'],['second', 'string']]))
