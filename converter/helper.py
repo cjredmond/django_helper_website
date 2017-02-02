@@ -36,4 +36,19 @@ def url_add(model_name):
     url_string += "\turl(r'^{}/(?P<pk>\d+)/update/$', {}UpdateView.as_view(), name='{}_update_view',\n".format(model_name, model_name.title(), model_name)
     return url_string
 
+def detail_template_add(model_name):
+    html_string = "<h2>{} Detail View</h2>\nThis page refers to a specific {}".format(model_name.title(), model_name)
+    return html_string
+
+def list_template_add(model_name):
+    html_string = "<h2>{} List View</h2>\nThis page lists all {}s".format(model_name.title(), model_name)
+    html_string += "\n{% for item in object_list %}\n\t{{ item }}\n{% endfor %}"
+    return html_string
+
+def create_template_add(model_name):
+    html_string = "<h2>Add a new {}</h2>".format(model_name)
+    html_string += "\n<form class='' method='post'>\n{% csrf_token %}\n{{ form }}"
+    html_string += "\n<input type='submit' value='submit>'\n</form>"
+    return html_string
+
 # print(model_add('post',[['first', 'string'],['second', 'string']]))

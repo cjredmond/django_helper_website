@@ -52,6 +52,10 @@
       <div class="col-md-7">
         <h4>URLs</h4>
           <pre>{{ url_info }}</pre>
+        <h4>HTML Files</h4>
+          {% for file in html_info %}
+          <pre>{{ file }}</pre>
+          {% endfor %}
       </div>
     </div>
 

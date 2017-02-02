@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from converter.helper import model_add, detail_view_add, list_view_add, create_view_add, update_view_add, url_add
+from converter.helper import model_add, detail_view_add, list_view_add, create_view_add \
+                             ,update_view_add, url_add, detail_template_add, list_template_add, create_template_add
+from django.http import HttpResponseRedirect
 
 class IndexView(TemplateView):
     template_name = "index.html"
@@ -36,4 +38,5 @@ class IndexView(TemplateView):
         context['model_info'] = model_add(model_name, fields)
         context['view_info'] = [detail_view_add(model_name), list_view_add(model_name), create_view_add(model_name,fields), update_view_add(model_name,fields)]
         context['url_info'] = url_add(model_name)
+        context['html_info'] = [detail_template_add(model_name), list_template_add(model_name), create_template_add(model_name)]
         return context
